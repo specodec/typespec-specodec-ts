@@ -227,7 +227,7 @@ export async function $onEmit(context: EmitContext<EmitterOptions>) {
       L.push("");
     }
 
-    const fileName = svc.serviceName.charAt(0).toLowerCase() + svc.serviceName.slice(1);
-    await emitFile(program, { path: `${outputDir}/${fileName}.types.ts`, content: L.join("\n") });
+    const fileName = svc.serviceName.replace(/([A-Z])/g, (m, c, i) => (i ? "_" : "") + c.toLowerCase());
+    await emitFile(program, { path: `${outputDir}/${fileName}_types.ts`, content: L.join("\n") });
   }
 }
